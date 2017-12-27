@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Analiza_kompleksnosti_algoritama</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/Analiza_kompleksnosti_algoritama.css" >
+  </head>
+  <body>
+    <h1>Analiza kompleksnosti algoritama!</h1>
+    <p>Algoritam je konačna i precizno definisana procedura, niz dobro definisanih pravila - instrukcija, kojom se ulazne vrednosti transformišu u izlazne, ili se opisuje izvršavanje nekog postupka. Danas se reč algoritam često vezuje za pojam računarstva, mada uopšteno algoritam možemo smatrati kao uputstvo kako rešiti neki zadatak ili problem. Uputstvo može sadržati korake koji se ponavljaju više puta ili korake kada treba doneti neku odluku, na osnovu nekog kriterijuma. Dobro uputstvo predviđa i postupak kada nisu svi uslovi ispunjeni.</p>
+    <p>Različiti algoritmi mogu rešiti isti problem različitim nizom postupaka uz manje ili više napora, za kraće ili duže vreme. Obzirom da je rezultat isti, algoritmi se mogu porediti po svojoj efikasnosti, brzini ili kompleksnosti. Da bi se od više mogućih algoritama odredio najbolji obično je potrebno oceniti dve veličine:<br/>
+    <b>Vremenska složenost</b> - količina potrošenog vremena procesora<br/>
+    <b>Prostorna složenost</b> - količina zauzete memorije<br/>
+    Složenost algoritma definisaćemo neformalno kao maksimalni broj operacija potrebnih za izvršavanje algoritma. Ovde smo prvo uveli pretpostavku da su sve (osnovne) operacije iste složenosti, obzirom da nam je potreban samo njihov broj. Sa druge strane, broj operacija će svakako zavisiti od samog ulaza. Iz tog razloga, kada se ispituje složenost nekog algoritma treba razmatrati “najgori mogući slučaj“. Nas zanima samo asimptotsko ponašanje vremenske složenosti.
+    Osnovne operacije predstavljaju skup operacija čije se vreme izvršavanja može ograničiti nekom konstantom koja zavisi samo od konkretne realizacije (računara, programskog jezika, prevodioca…). Drugim rečima, pretpostavljamo da se svaka osnovna operacija izvršava za jedinično vreme. Naravno nisu sve operacije takve: primera radi stepenovanje ne možemo smatrati osnovnom operacijom. Tipične osnovne operacije su: dodela vrednosti promenjivoj, poređenje dve promenjive, aritmetičke i logičke operacije, ulazno/izlazne operacije.<br/> 
+    Uobičajen način za izražavanje složenosti algoritma je O-notacija. Složenost će zavisiti od ulaznih veličina (ograničenja brojnih vrednosti, veličina matrica i nizova...), dok ćemo konstante koje su “mnogo” manje od ulaznih ograničenja zanemariti. Performanse većine algoritama zavise od n, veličine ulaza. Algoritmi se mogu klasifikovati od najboljih ka lošijim performansama redom:<br/>
+    O(log n) - za algoritam se kaže da je logaritamski ako se njegovo vreme rada povećava logaritamski srazmerno veličini ulaza.<br/>
+    O(n) - vreme rada linearnog algoritma povećava se direktno srazmerno veličini unosa.<br/>
+    O(n log n) - superlinearni algoritam je na sredini između linearnog algoritma i polinomijalnog algoritma.<br/>
+    O (n<sup>c</sup>) - polinomijalni(za c=2 kvadratni, za c=3 kubni,...) algoritam brzo raste na osnovu veličine ulaza.<br/>
+    O (c<sup>n</sup>) - eksponencijalni algoritam raste čak i brže od polinomijalnog algoritma.<br/>
+    O (n!) - faktorijelni algoritam postaje najbrži i postaje neupotrebljiv i za male vrednosti n.</p>
+    <img src="img/computational_complexity.svg.png">
+    <h2>Primeri</h2>
+    <h3>Suma prvih n brojeva</h3>
+    <pre>
+        function suma1(n) {
+          var sum = 0;
+          for(var i=1; i<=n; i++) {
+            sum += i;
+          }
+          return sum;
+        }
+    </pre>
+    <input type="submit" value="suma1" id="suma1"/>
+    <p id="rez1"></p>
+    <pre>
+        function suma2(n) {
+          return n*(n+1)/2;
+        }
+    </pre>
+    <input type="submit" value="suma2" id="suma2"/>
+    <p id="rez2"></p>
+    <p>U prvom algoritmu for petlja se izvršava n puta, pa ukupan broj operacija koje se izvršavaju unutar petlje zavisi od veličine broja n. U drugom algoritmu je potrebno obaviti jedno sabiranje, jedno množenje, jedno deljenje, bez obzira na veličinu broja n. Prema tome, trajanje algoritamskog procesa prvog algoritma je proporcionalno sa n i to je algoritam linearne složenosti, tj. reda O(n), dok je trajanje drugog algoritamskog procesa konstantno bez obzira na veličinu broja n, tj. reda O(1).</p>
+    <h3>Sortiranje niza</h3>
+    <pre>
+      function bruteForceSort(array) {
+        var length = array.length;
+        for (var i = 0; i < length-1; i++) {
+          for (var j = i + 1; j < length; j++) {
+            if(array[i] > array[j]) {
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+      }
+      return array;
+    }
+    </pre>
+    <input type="submit" value="sort1" id="sort1"/>
+    <p id="rez3"></p>
+    <pre>
+      function bubbleSort(array) {
+      var length = array.length;
+        for (var i = length-1; i >= 0; i--) {
+          for(var j = 1; j <= i; j++) {
+            if(array[j-1] > array[j]) {
+              var temp = array[j-1];
+              array[j-1] = array[j];
+              array[j] = temp;
+            }
+          }
+        }
+        return array;
+      }
+    </pre>
+    <input type="submit" value="sort2" id="sort2"/>
+    <p id="rez4"></p>
+    <p>Najgori scenario ovog algoritma je kvadratni - O(n<sup>2</sup>) - jer je moguće da će podaci biti potpuno obrnuti od sortiranih. Najbolji scenario je linearni - O(n) - jer čak i ako je u potpunosti sortiran, moramo proveriti svaki skup brojeva.</p>
+    <p>O(2<sup>n</sup>) označava algoritam čiji se rast udvostručuje sa svakim dodavanjem na ulazni skup podataka. Kriva rasta funkcije O(2<sup>n</sup>) je eksponencijalna - polazi se veoma plitko, a zatim raste meteorično. Primer funkcije O(2<sup>n</sup>) je rekurzivno izračunavanje brojeva Fibonačijevog niza 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ... gde se svaki sledeći član dobija kao zbir prethodna dva. U takvom slučaju potrebno je napraviti iterativni algoritam jer ovaj postaje beskoristan za veliki ulazni podatak.</p>
+    <pre>
+      function Fibonacci(number) {
+        if (number <= 1) {
+          return number;
+        }
+      return Fibonacci(number-2) + Fibonacci(number-1);
+      }
+    </pre>
+    <input type="submit" value="Fibonacci" id="Fibonacci"/>
+    <p id="rez5"></p>
+    <p>Binarno pretraživanje je tehnika koja se koristi za pretraživanje sortiranih skupova podataka. Bira se srednji element skupa podataka i upoređuje se sa ciljnom vrednošću. Ako se vrednosti podudaraju, uspešno se završava. Ako je ciljna vrednost veća od vrednosti tog elementa, ona će uzeti gornju polovinu skupa podataka i izvršiti istu operaciju nad njim. Isto tako, ako je ciljna vrednost niža od vrednosti tog elementa, izvršiće operaciju u odnosu na donju polovinu. Nastavlja se proces sa svakom iteracijom dok se vrednost ne pronađe ili dok ne može više da se deli skup podataka. Ovaj tip algoritma je opisan kao O(log n).</p>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="js/Analiza_kompleksnosti_algoritama.js"></script>
+  </body>
+</html>
